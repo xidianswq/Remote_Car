@@ -10,11 +10,13 @@
 #include "string.h"	
 #include "Delay.h"
 #include "Timer.h"
+#include "cs100a.h"
 #include "usart.h"
 #include "beep.h"
 #include "led.h"
 #include "ray.h"
 #include "pca9685.h"
+#include "red_ray.h"
 
 //********************************************引脚使用说明********************************************
 /*
@@ -48,10 +50,11 @@ void system_init(void){
 	OLED_Init();				//oled初始化
 	Beep_Init();				//蜂鸣器初始化
 	Led_Init();					//led灯初始化
+	Red_Ray_Init();				//红色激光灯初始化
 	uart_init(115200);			//uart1初始化
 	Encoder_Init();				//直流电机编码器初始化
 	AD_Init();					//ad初始化
-	Timer_Init();				//0.1s定时器初始化
+//	Timer_Init();				//0.1s定时器初始化
 	PCA9685_Init();				//PCA9685初始化
 	PWM_Init();					//直流电机pwm初始化
 	TIM1_PWM_Init(9999,143);	//一周期20ms，分辨率20ms/10000）
@@ -75,6 +78,8 @@ void ray_cvcar(void){
 				case 3:Set_Angle(0);break;
 				case 4:Set_Angle(-40);break;
 				case 5:Set_Angle(40);break;
+				case 6:Red_Ray_On();break;
+				case 7:Red_Ray_Off();break;
 				default:break;
 			}
 		}
@@ -100,8 +105,10 @@ void TIM2_IRQHandler()
 	if (TIM_GetITStatus(TIM2, TIM_IT_Update) == SET)
 	{	
 		//基本状态显示
+		Cs100a_Start();
 		Show_Voltage_State();
 		Show_DC_Motor_State();	
+		Show_Distance();
 		
 		//uart接收处理显示
 		//Get_Point_Pos();
@@ -112,3 +119,4 @@ void TIM2_IRQHandler()
 
 	}
 }
+

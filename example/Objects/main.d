@@ -43,8 +43,10 @@
 .\objects\main.o: .\System\adc\AD.h
 .\objects\main.o: D:\software\study\keil\keil5_mdk\ARM\ARMCC\Bin\..\include\string.h
 .\objects\main.o: .\System\Timer\Timer.h
+.\objects\main.o: .\Hardware\cs100a\cs100a.h
 .\objects\main.o: .\Hardware\serial\usart.h
 .\objects\main.o: D:\software\study\keil\keil5_mdk\ARM\ARMCC\Bin\..\include\stdio.h
 .\objects\main.o: .\Hardware\ray\ray.h
 .\objects\main.o: .\Hardware\pca9685\pca9685.h
 .\objects\main.o: D:\software\study\keil\keil5_mdk\ARM\ARMCC\Bin\..\include\math.h
+.\objects\main.o: .\Hardware\red_ray\red_ray.h

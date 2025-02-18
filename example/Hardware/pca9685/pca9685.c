@@ -119,6 +119,7 @@ void PCA9685_Init(void)
 {
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_I2C1, ENABLE);
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOB, ENABLE);
+	RCC_APB2PeriphClockCmd(RCC_APB2Periph_AFIO, ENABLE);
 	
 	GPIO_PinRemapConfig(GPIO_Remap_I2C1,ENABLE);
 	

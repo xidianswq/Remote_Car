@@ -336,7 +336,7 @@
               <MiscControls></MiscControls>
               <Define>USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
-              <IncludePath>.\Library;.\Start;.\User;.\System\Public;.\System\delay;.\System\Timer;.\Hardware\bluetooth;.\Hardware\sys;.\Hardware\oled;.\Hardware\serial;.\System\pwm_1;.\System\pwm_2;.\Hardware\dc_motor;.\System\adc;.\Hardware\cs100a;.\Hardware\servo_motor;.\Hardware\mpu6050;.\Hardware\beep;.\Hardware\led;.\Hardware\ray;.\Hardware\pca9685;.\System\Dma;.\User\pid</IncludePath>
+              <IncludePath>.\Library;.\Start;.\User;.\System\Public;.\System\delay;.\System\Timer;.\Hardware\bluetooth;.\Hardware\sys;.\Hardware\oled;.\Hardware\serial;.\System\pwm_1;.\System\pwm_2;.\Hardware\dc_motor;.\System\adc;.\Hardware\cs100a;.\Hardware\servo_motor;.\Hardware\mpu6050;.\Hardware\beep;.\Hardware\led;.\Hardware\ray;.\Hardware\pca9685;.\System\Dma;.\User\pid;.\Hardware\red_ray</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -844,6 +844,16 @@
               <FileName>pca9685.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\Hardware\pca9685\pca9685.h</FilePath>
+            </File>
+            <File>
+              <FileName>red_ray.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\Hardware\red_ray\red_ray.c</FilePath>
+            </File>
+            <File>
+              <FileName>red_ray.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\Hardware\red_ray\red_ray.h</FilePath>
             </File>
           </Files>
         </Group>

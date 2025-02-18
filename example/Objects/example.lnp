@@ -43,6 +43,7 @@
 ".\objects\led.o"
 ".\objects\ray.o"
 ".\objects\pca9685.o"
+".\objects\red_ray.o"
 ".\objects\stm32f10x_it.o"
 ".\objects\main.o"
 ".\objects\pid.o"
