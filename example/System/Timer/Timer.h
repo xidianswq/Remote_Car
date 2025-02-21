@@ -3,4 +3,6 @@
 
 void Timer_Init(void);
 
+extern unsigned long long system_tick;	//о╣мЁ╫зед
+
 #endif

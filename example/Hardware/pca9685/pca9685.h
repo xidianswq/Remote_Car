@@ -48,6 +48,8 @@ void Spinnig_Vert(int diff);
 void Set_Angle_Vert(float angle);
 void Follow_Point(void);
 int Get_Point_Pos(void);
+void Nano_SetPWM(void);
+int Get_Nano_PWM(void);
 void JoyStick_Control(void);
 
 #endif

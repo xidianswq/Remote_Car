@@ -1,6 +1,7 @@
 #include "stm32f10x.h"                  // Device header
 
 //TIM2
+unsigned long long system_tick=0;		//о╣мЁ╫зед
 
 void Timer_Init(void)
 {

@@ -40,6 +40,7 @@ extern float Speed_Cm_S;	//小车速度cm/s					//dc_motor.c
 extern char  USART_RX_INFO[USART_REC_LEN];	//uart接收数据	//usart.c
 extern uint16_t RxPackFlag;					//uart接收标志位	//usart.c
 extern int x,y;												//PCA9685.c
+extern unsigned long long system_tick;	//系统节拍
 
 int16_t Ax,Ay,Az,Pitch,Roll,Yaw;			//mpu6050接收到的数据
 int mode=0;					//当前功能模式
@@ -54,16 +55,19 @@ void system_init(void){
 	uart_init(115200);			//uart1初始化
 	Encoder_Init();				//直流电机编码器初始化
 	AD_Init();					//ad初始化
-//	Timer_Init();				//0.1s定时器初始化
+	Timer_Init();				//0.1s定时器初始化
 	PCA9685_Init();				//PCA9685初始化
 	PWM_Init();					//直流电机pwm初始化
 	TIM1_PWM_Init(9999,143);	//一周期20ms，分辨率20ms/10000）
 	TIM_SetCompare1(TIM1,710);	//对齐角度为90度(1.5ms)
 	Dc_Motor_Init();			//直流电机初始化（必须是最后配置的GPIO！）
+	system_tick=0;
 }
 
 //********************************************激光除草小车********************************************
 void ray_cvcar(void){
+	unsigned long long system_tick_temp=0;
+	int updata_sign=1;
 	while(1)
 	{
 		//蓝牙接收信号处理部分
@@ -85,8 +89,23 @@ void ray_cvcar(void){
 		}
 		
 		if(RxPackFlag==1){
+			if(updata_sign)
+			{
+				system_tick_temp=system_tick;
+				updata_sign=0;
+				Dc_Motor_Stop();
+			}
+			if((system_tick-system_tick_temp)<=50)
+			{
+				Nano_SetPWM();
+				Red_Ray_On();
+			}
+			else{
+				updata_sign=1;
+				Red_Ray_Off();
+				Dc_Motor_Go();
+			}
 			RxPackFlag=0;
-			Follow_Point();
 		}
 	}
 }
@@ -103,17 +122,9 @@ int main(void)
 void TIM2_IRQHandler()
 {
 	if (TIM_GetITStatus(TIM2, TIM_IT_Update) == SET)
-	{	
-		//基本状态显示
-		Cs100a_Start();
-		Show_Voltage_State();
-		Show_DC_Motor_State();	
-		Show_Distance();
+	{		
 		
-		//uart接收处理显示
-		//Get_Point_Pos();
-		OLED_ShowNum(3,12,x,3);
-		//OLED_ShowString(3,12,USART_RX_INFO);
+		system_tick++;
 		
 		TIM_ClearITPendingBit(TIM2, TIM_IT_Update);
 

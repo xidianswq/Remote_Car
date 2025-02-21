@@ -11,7 +11,7 @@ void Dc_Motor_Stop(void)
 	In1_Off;
 	In2_Off;
 	Direction=0;
-	Dc_Motor_SetDuty(0);
+//	Dc_Motor_SetDuty(0);
 	TIM_EncoderInterfaceConfig(TIM4, TIM_EncoderMode_TI12, TIM_ICPolarity_Rising, TIM_ICPolarity_Rising);			//还原正常向上计数模式
 //	In3_Off;
 //	In4_Off;
@@ -64,6 +64,7 @@ void Dc_Motor_Emerg_Stop(void)
 	Dc_Motor_SetDuty(5*Speed_Cm_S);
 	delay_ms(4+((int)Speed_Cm_S/15)%5);
 	Dc_Motor_Stop();
+	Dc_Motor_SetDuty(0);
 }
 
 //设置控制小车速度的PWM波的占空比

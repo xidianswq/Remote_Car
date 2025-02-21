@@ -263,6 +263,42 @@ int Get_Point_Pos(void)
 	return state;							//返回接受成功数
 }
 
+/*********************************************************
+函数功能：云台脉宽计数值设置为nano传递值
+*********************************************************/
+int PWM_x=SERVO090,PWM_y=SERVO090;
+void Nano_SetPWM(void){
+	int Get_Nano_PWM(void);
+
+	if(Get_Nano_PWM()==2){
+		PCA9685_SetPwm(0,0,PWM_x);
+		PCA9685_SetPwm(1,0,PWM_y);
+	}
+	
+}
+
+int Get_Nano_PWM(void)
+{
+	int state=0,i,j;
+	for(i=0;i<2;i++){
+		for(j=0;j<3;j++){
+			if(is_num(USART_RX_INFO[i*4+j+1]))continue;
+			else return state;
+		}
+	}
+	if(USART_RX_INFO[0]=='x')				//检查数据定位是否正确(上位机发送信息为：x123y456)
+	{
+		x=(USART_RX_INFO[1]-'0')*100+(USART_RX_INFO[2]-'0')*10+(USART_RX_INFO[3]-'0');
+		if(x>0)state++;
+	}
+	if(USART_RX_INFO[4]=='y')				//检查数据定位是否正确(上位机发送信息为：x123y456)
+	{
+		y=(USART_RX_INFO[5]-'0')*100+(USART_RX_INFO[6]-'0')*10+(USART_RX_INFO[7]-'0');
+		if(y>0)state++;
+	}
+	CLR_Buf();
+	return state;							//返回接受成功数
+}
 
 /*********************************************************
 函数功能：云台由JOYSTICK控制器控制
